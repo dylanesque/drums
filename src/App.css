@@ -6,7 +6,8 @@ button,
 input,
 optgroup,
 select,
-textarea {
+textarea,
+.drum-pad {
   font-family: inherit; /* 1 */
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
@@ -19,7 +20,8 @@ textarea {
  */
 
 button,
-input { /* 1 */
+input,
+.drum-pad { /* 1 */
   overflow: visible;
   width: 100px;
   height: 100px;
@@ -31,7 +33,8 @@ input { /* 1 */
  */
 
 button,
-select { /* 1 */
+select,
+.drum-pad { /* 1 */
   text-transform: none;
 }
 
@@ -42,7 +45,8 @@ select { /* 1 */
 button,
 [type="button"],
 [type="reset"],
-[type="submit"] {
+[type="submit"],
+.drum-pad {
   -webkit-appearance: button;
 }
 
@@ -66,8 +70,10 @@ p {
   align-items: center;
 }
 
-#drum-pad  {
-  text-align: center;
+.drum-pad  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .drum-buttons {
