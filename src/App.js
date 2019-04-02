@@ -5,8 +5,6 @@ import Display from "./Display";
 import Button from "./Button";
 import drumData from './drumData';
 
-const ref = React.createRef();
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -16,9 +14,9 @@ class App extends Component {
     };
   }
 
-  handleClick = (name) => {
+  handleClick = (name, src) => {
     this.setState({ display: name });
-    ref.play();
+    new Audio(src).play();
   };
 
   render() {
@@ -31,9 +29,9 @@ class App extends Component {
               handleClick={this.handleClick}
               display={this.state.display}
               name={button.name}
-              drumKey={button.key}
+              key={button.key}
+              id={button.key}
               src={button.src}
-              ref={ref}
             />
           ))}
         </div>
