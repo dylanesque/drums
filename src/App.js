@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 
 import "./App.css";
-import Display from "./Display";
-import Button from "./Button";
 import drumData from "./drumData";
 
 class App extends Component {
@@ -14,17 +12,43 @@ class App extends Component {
     };
   }
 
+  changeDisplay = (name) => {
+    this.setState({ display: name });
+  }
+
+  render() {
+    return (
+      <div id="drum-machine">
+        <h3>{this.state.display}</h3>
+        <div className="drum-buttons">
+          {drumData.map(button => (
+            <DrumPad
+              display={this.state.display}
+              name={button.name}
+              key={button.key}
+              id={button.key}
+              src={button.src}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+}
+
+class DrumPad extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyDown);
+    document.addEventListener("keydown", this.handleKeydown);
+    // window.focus();
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyDown);
+    document.removeEventListener("keydown", this.handleKeydown);
   }
-
-  handleKeyDown = (e, src) => {
-    console.log(src);
-  };
 
   handleClick = (name, src) => {
     this.setState({ display: name });
@@ -33,22 +57,9 @@ class App extends Component {
 
   render() {
     return (
-      <div id="drum-machine">
-        <Display display={this.state.display} />
-        <div className="drum-buttons">
-          {drumData.map(button => (
-            <Button
-              handleClick={this.handleClick}
-              handleKeyDown={this.handleKeyDown}
-              display={this.state.display}
-              name={button.name}
-              key={button.key}
-              id={button.key}
-              src={button.src}
-              tabIndex="0"
-            />
-          ))}
-        </div>
+      <div onClick={() => handleClick(name, src)} className="drum-pad">
+        {id}
+        <audio className="clip" id={id} data={src} />
       </div>
     );
   }
