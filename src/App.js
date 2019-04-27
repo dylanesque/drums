@@ -23,7 +23,7 @@ class App extends Component {
         <div className="drum-buttons">
           {drumData.map(button => (
             <DrumPad
-              display={this.state.display}
+              changeDisplay={this.changeDisplay}
               name={button.name}
               key={button.key}
               id={button.key}
@@ -50,14 +50,14 @@ class DrumPad extends Component {
     document.removeEventListener("keydown", this.handleKeydown);
   }
 
-  handleClick = (name, src) => {
-    this.setState({ display: name });
-    new Audio(src).play();
+  handleClick = () => {
+    this.props.changeDisplay(this.props.id);
   };
 
-  render() {
+  render() {;
+    const {id, src} = this.props
     return (
-      <div onClick={() => handleClick(name, src)} className="drum-pad">
+      <div onClick={this.handleClick} className="drum-pad">
         {id}
         <audio className="clip" id={id} data={src} />
       </div>
