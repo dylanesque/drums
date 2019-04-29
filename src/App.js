@@ -65,7 +65,7 @@ class DrumPad extends Component {
         <audio
           ref={ref => (this.audio = ref)}
           className="clip"
-
+          id={id}
           src={src}
         />
       </div>
