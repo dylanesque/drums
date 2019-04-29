@@ -12,14 +12,14 @@ class App extends Component {
     };
   }
 
-  changeDisplay = (name) => {
+  changeDisplay = name => {
     this.setState({ display: name });
-  }
+  };
 
   render() {
     return (
       <div id="drum-machine">
-        <h3>{this.state.display}</h3>
+        <h3 id="display">{this.state.display}</h3>
         <div className="drum-buttons">
           {drumData.map(button => (
             <DrumPad
@@ -37,13 +37,8 @@ class App extends Component {
 }
 
 class DrumPad extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeydown);
-    // window.focus();
   }
 
   componentWillUnmount() {
@@ -51,15 +46,28 @@ class DrumPad extends Component {
   }
 
   handleClick = () => {
-    this.props.changeDisplay(this.props.id);
+    this.audio.play();
+    this.props.changeDisplay(this.props.name);
   };
 
-  render() {;
-    const {id, src} = this.props
+  handleKeydown = e => {
+    if (e.keyCode === this.props.id.charCodeAt()) {
+      this.audio.play();
+      this.props.changeDisplay(this.props.name);
+    }
+  };
+
+  render() {
+    const { id, name, src } = this.props;
     return (
-      <div onClick={this.handleClick} className="drum-pad">
+      <div onClick={this.handleClick} className="drum-pad" id={name}>
         {id}
-        <audio className="clip" id={id} data={src} />
+        <audio
+          ref={ref => (this.audio = ref)}
+          className="clip"
+
+          src={src}
+        />
       </div>
     );
   }
